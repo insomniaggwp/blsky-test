@@ -1,15 +1,31 @@
 import './App.css'
-import { useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import ChatBox from './components/ChatBox';
-import dummyMessages from './constanta';
 
 function App() {
-  const [messages, setMessages] = useState(dummyMessages);
+  const [messages, setMessages] = useState([]);
+  const socketRef = useRef(null);
 
-  const onAddMessage = (dataMessage) => {
-    const { sender, message } = dataMessage;
-    const newMessage = { id: crypto.randomUUID(), sender, message };
-    setMessages(prevState => [...prevState, newMessage])
+  useEffect(() => {
+    socketRef.current = new WebSocket('ws://localhost:8080');
+
+    socketRef.current.onmessage = (event) => {
+      const data = JSON.parse(event.data);
+
+      if (data.type === 'history') {
+        setMessages(data.messages);
+      } else {
+        setMessages((prev) => [...prev, data]);
+      }
+    };
+
+    return () => socketRef.current.close();
+  }, []);
+
+  const onAddMessage = (message) => {
+    const { sender, content } = message;
+    const newMessage = { id: crypto.randomUUID(), sender, content };
+    socketRef.current.send(JSON.stringify(newMessage));
   }
 
   return (

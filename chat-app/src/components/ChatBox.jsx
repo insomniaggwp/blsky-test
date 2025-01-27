@@ -32,7 +32,7 @@ const ChatBox = ({ sender, messages, onAddMessage }) => {
     e.preventDefault();
 
     if (message.trim()) {
-      onAddMessage({ message, sender });
+      onAddMessage({ content: message, sender });
       setMessage("");
       bodyChatRef.current.scrollTop = bodyChatRef.current.scrollHeight;
     }
@@ -57,15 +57,15 @@ const ChatBox = ({ sender, messages, onAddMessage }) => {
       <div className={`chat-content-wrapper`}>
         <div className="chat-container" ref={bodyChatRef}>
           {messages.length > 0 &&
-            messages.map((chat) => {
+            messages.map((message) => {
               return (
                 <div
-                  key={chat.id}
+                  key={message.id}
                   className={`chat-bubble ${
-                    sender === chat.sender ? "sender" : "receiver"
+                    sender === message.sender ? "sender" : "receiver"
                   }`}
                 >
-                  {chat.message}
+                  {message.content}
                 </div>
               );
             })}
@@ -95,7 +95,7 @@ ChatBox.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       sender: PropTypes.string.isRequired,
-      message: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
     })
   ).isRequired,
 };

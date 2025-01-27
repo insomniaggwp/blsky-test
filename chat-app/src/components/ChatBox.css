@@ -1,0 +1,137 @@
+.chat-wrapper {
+  position: fixed;
+  margin: 0 auto;
+  overflow: hidden;
+  bottom: 0;
+  width: 100%;
+  max-width: 400px;
+  border: 3px solid hsl(0, 75%, 23%);
+  border-radius: 5px;
+  animation: slide-in 700ms;
+}
+
+.chat-wrapper.left {
+  left: 10px;
+}
+
+.chat-wrapper.right {
+  right: 10px;
+}
+
+.chat-wrapper.show {
+  animation: slide-in 1000ms;
+  transform: translateY(0%);
+}
+
+.chat-wrapper.hidden {
+  animation: slide-out 1000ms;
+  transform: translateY(93%);
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0%);
+  }
+}
+
+@keyframes slide-out {
+  from {
+    transform: translateY(0%);
+  }
+  to {
+    transform: translateY(93%);
+  }
+}
+
+.chat-header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 5px;
+  border-bottom: 3px solid hsl(0, 75%, 23%);
+}
+
+.chat-header button {
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+  background-color: transparent;
+}
+
+.button-close {
+  transition: transform 250ms;
+}
+
+.button-close:hover {
+  cursor: pointer;
+  transform: scale(1.5);
+}
+
+.chat-content-wrapper {
+  height: 600px;
+  background-color: hsl(0, 100%, 98%);
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 10px;
+  overflow-y: scroll;
+}
+
+.chat-content-footer {
+  padding: 10px;
+  background-color: hsl(0, 0%, 100%);
+}
+
+.chat-bubble {
+  position: relative;
+  max-width: 70%;
+  padding: 10px 15px;
+  border-radius: 15px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+  background-color: hsl(0, 0%, 100%);
+}
+
+.chat-bubble.receiver {
+  align-self: flex-start;
+}
+
+.chat-bubble.sender {
+  align-self: flex-end;
+  background-color: rgb(215, 255, 215);
+}
+
+.input-message-wrapper {
+  display: flex;
+}
+
+.input-wrapper {
+  flex: 1.8;
+}
+
+.input-wrapper input {
+  width: 100%;
+}
+
+.button-wrapper {
+  flex: 0.2;
+}
+
+.button-wrapper button {
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.3s, transform 0.2s;
+  background-color: transparent;
+  cursor: pointer;
+}
